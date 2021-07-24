@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang = "en">
+
+    <head>
+        <meta charset = "UFT-8">
+        <meta name = "viewport" content = "width=device-width,initial-scalre=1.0">
+        <meta http-equiv="x-UA-Compatible" content = "ie=edge">
+        <title>TetrisVAnsh</title>
+
+        <style>
+            body {
+                height: 100vh;
+                width: 100vw;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0;
+                background-color: black;
+            }
+
+            canvas {
+                background-color: black;
+                border: 2px solid black;
+            }
+
+            #game-board {
+                background-color: rgb(0, 0, 0);
+                width: 45vmin;
+                height: 90vmin;
+                display: grid;
+                grid-template-rows: repeat(20, 1fr); 
+                grid-template-columns: repeat(10, 1fr);
+                border: .25vmin solid grey
+            }
+
+            .blank {
+                background-color: black;
+                border: .25vmin solid black;
+            }
+
+            .tblock{
+                background-color: rgb(128, 0, 128);
+                border: .25vmin solid black;
+            }
+
+            .line {
+                background-color: rgb(0, 255, 255);
+                border: .25vmin solid black;
+            }
+
+            .square {
+                background-color: rgb(255, 255, 0);
+                border: .25vmin solid black;
+            }
+
+            .sblock {
+                background-color: rgb(0, 255, 0);
+                border: .25vmin solid black;
+            }
+
+            .zblock {
+                background-color: rgb(255, 0, 0);
+                border: .25vmin solid black;
+            }
+
+            .jblock {
+                background-color: rgb(0, 0, 255);
+                border: .25vmin solid black;
+            }
+
+            .lblock {
+                background-color: rgb(255, 127, 0);
+                border: .25vmin solid black;
+            }
+
+
+        </style>
+    </head>
+
+    <body>
+        <div id = "game-board"> </div>
+        <canvas></canvas>
+        <script src = "Tetris.js" > </script>
+    </body>
