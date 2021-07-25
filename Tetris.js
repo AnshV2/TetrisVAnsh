@@ -27,6 +27,12 @@ var block = [
     {x: centrex + 1, y: centrey},
     {x: centrex, y: centrey + 1},
 ];
+var shadowBlock = [
+    {x: centrex, y: centrey},
+    {x: centrex - 1, y: centrey},
+    {x: centrex + 1, y: centrey},
+    {x: centrex, y: centrey + 1},
+];
 var clear = new Array(25);
 for (var i = 1; i < 20; i++) {
     clear[i] = 0;
@@ -266,6 +272,40 @@ function drawBlock() {
     })
 }
 
+function drawShadow() {
+    shadowBlock.forEach (segment => {
+        const blockElement = document.createElement('div');
+        blockElement.style.gridRowStart = segment.y;
+        blockElement.style.gridColumnStart = segment.x;
+        blockElement.classList.add('shadow');
+        gameBoard.appendChild(blockElement);
+    })
+}
+
+function updateShadow() {
+    var filler = 0;
+    var validate = 0;
+    while (validate == 0) {
+        filler++;
+        for (let i = 3; i >= 0; i--) {
+            if (occupied[block[i].x][block[i].y + filler] == 1) {
+                validate = 1;
+            }
+        }
+    }
+    filler--;
+    for (let i = 3; i >= 0; i--) {
+        shadowBlock[i].y = block[i].y + filler;
+        shadowBlock[i].x = block[i].x;
+    }
+}
+
+function clearShadow() {
+    for (let i = 3; i >= 0; i--) {
+        clearPiece(shadowBlock[i].x, shadowBlock[i].y);
+    }
+}
+
 function clearBlock() {
     block.forEach (segment => {
         const blankElement = document.createElement('div');
@@ -456,6 +496,10 @@ function updateDown() {
         }
         //////////////////////////////////////////////////////////////////////////////////
         placeSignal = 0;
+        //clearShadow();
+        updateShadow();
+        drawShadow();
+        //drawBlock();
     }
     else {
         clearBlock();
@@ -510,6 +554,10 @@ window.addEventListener('keydown', function(event) {
                 }
             }
             drawBlock();
+            clearShadow();
+            updateShadow();
+            drawShadow();
+            drawBlock();
         }
     }
 
@@ -524,6 +572,10 @@ window.addEventListener('keydown', function(event) {
                 block[i].x++;
             }
         }
+        drawBlock();
+        clearShadow();
+        updateShadow();
+        drawShadow();
         drawBlock();
     }
 
@@ -571,6 +623,10 @@ window.addEventListener('keydown', function(event) {
             block[3].x = threex;
             block[3].y = threey;
         }
+        drawBlock();
+        clearShadow();
+        updateShadow();
+        drawShadow();
         drawBlock();
     }
 
@@ -639,4 +695,8 @@ else if (blockType == 7) {
         {x: centrex - 1, y: 1 + 1},
     ];
 }
+
+updateShadow();
+drawShadow();
+
 main();
